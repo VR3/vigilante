@@ -93,7 +93,7 @@ export default class ContactsScreen extends React.Component {
 
   render() {
     const { contacts, loading, selectedContacts } = this.state;
-    console.log(selectedContacts)
+
     if (loading) {
       return (
           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>

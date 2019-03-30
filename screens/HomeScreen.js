@@ -54,9 +54,9 @@ export default class HomeScreen extends React.Component {
     };
 
     const user = JSON.parse(await AsyncStorage.getItem('user'));
-
-    await firebase.database().ref('reports/'+S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4()).set({
-      id: S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4(),
+    const id = S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4()
+    await firebase.database().ref('reports/' + id).set({
+      id,
       fname: user.fname,
       lname: user.lname,
       age: user.age,
@@ -93,8 +93,7 @@ export default class HomeScreen extends React.Component {
           <View style={styles.tabBarInfoContainer}>
             <TouchableOpacity
               style={{paddingHorizontal: 20, paddingVertical: 20, borderRadius: 5, backgroundColor: '#e9ecfd'}}
-              onPress={() => {
-
+              onLongPress={() => {
                 this.handleReportSend()
                 alert('Reporte Enviado')
               }}

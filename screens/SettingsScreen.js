@@ -51,11 +51,9 @@ export default class SettingsScreen extends React.Component {
   }
 
   render() {
-    console.log('thisstate', this.state)
     const { fname, lname, age, gender } = this.state;
     return (
-      <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+        <ScrollView contentContainerStyle={styles.contentContainer}>
           <View style={styles.welcomeContainer}>
             <Image
               source={
@@ -68,7 +66,7 @@ export default class SettingsScreen extends React.Component {
           </View>
           <View style={styles.getStartedContainer}>
             <Text style={styles.mainStartedText}>Vigilante</Text>
-            <Text style={styles.getStartedText}>Ingresa tus datos personales para mantener actualizada nuestra base y poder ayudarte en todo momento.</Text>
+            <Text style={styles.getStartedText}>Ingresa tus datos personales.</Text>
 
             <Input
               label="Nombre"
@@ -94,31 +92,26 @@ export default class SettingsScreen extends React.Component {
               placeholder={gender}
               onChangeText={this.handleGenderChange}
             />
+            { fname || lname || age || gender ?
+              <View style={styles.tabBarInfoContainer}>
+                <TouchableOpacity 
+                  style={{paddingHorizontal: 20, paddingVertical: 20, borderRadius: 5, backgroundColor: '#e9ecfd'}}
+                  onPress={() => {
+                    AsyncStorage.setItem('user', JSON.stringify(this.state))
+                    alert('Información Guardada')
+                  }}
+                >
+                  <Text style={{color: '#464d84'}}>Guarda</Text>
+                </TouchableOpacity>
+              </View>
+            : null}
           </View>
-          { fname || lname || age || gender ?
-            <View style={styles.tabBarInfoContainer}>
-              <TouchableOpacity 
-                style={{paddingHorizontal: 20, paddingVertical: 20, borderRadius: 5, backgroundColor: '#e9ecfd'}}
-                onPress={() => {
-                  AsyncStorage.setItem('user', JSON.stringify(this.state))
-                  alert('Información Guardada')
-                }}
-              >
-                <Text style={{color: '#464d84'}}>Guarda</Text>
-              </TouchableOpacity>
-            </View>
-          : null}
         </ScrollView>
-      </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
   developmentModeText: {
     marginBottom: 20,
     color: 'rgba(0,0,0,0.4)',
@@ -129,7 +122,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
     justifyContent: 'center',
-    paddingTop: 30,
+    paddingTop: 10,
   },
   welcomeContainer: {
     alignItems: 'center',
